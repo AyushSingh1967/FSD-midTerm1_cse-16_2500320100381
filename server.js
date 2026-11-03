@@ -56,6 +56,36 @@ app.post('/api/students', (req, res) => {
     });
 
 });
+// TASK 3: RETRIEVE STUDENT RECORDS
+
+app.get('/api/students', (req, res) => {
+
+    res.status(200).json({
+        message: "All student records retrieved successfully",
+        students: students
+    });
+
+});
+
+
+app.get('/api/students/:id', (req, res) => {
+
+    const studentId = Number(req.params.id);
+
+    const student = students.find(s => s.id === studentId);
+
+    if (!student) {
+        return res.status(404).json({
+            message: "Student not found"
+        });
+    }
+
+    res.status(200).json({
+        message: "Student record retrieved successfully",
+        student: student
+    });
+
+});
 
 
 app.listen(PORT, () => {
